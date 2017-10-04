@@ -1,3 +1,5 @@
+import {SEARCH_SUCCESS} from '../actions';
+
 const initialState = {
   founded: {
     barcode: '',
@@ -7,5 +9,12 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  return state;
+  switch (action.type) {
+    case SEARCH_SUCCESS:
+      return {
+        founded: action.product
+      };
+    default:
+      return state;
+  }
 }

@@ -1,5 +1,6 @@
 import './ProductPanel.css';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class ProductPanel extends React.Component {
 
@@ -10,7 +11,12 @@ export default class ProductPanel extends React.Component {
     };
   }
 
+  handleUpdate() {
+    this.props.onUpdate(this.props.product.barcode, this.state.count);
+  }
+
   render() {
+    const product = this.props.product;
     return (
       <div className="container">
         <h4>Bulunan Ürün</h4>
@@ -19,7 +25,7 @@ export default class ProductPanel extends React.Component {
             Barkod:
           </div>
           <div className="p-field">
-            efefrfrr
+            {product.barcode}
           </div>
         </div>
         <div>
@@ -27,7 +33,7 @@ export default class ProductPanel extends React.Component {
             Parça No:
           </div>
           <div className="p-field">
-            trthththth
+            {product.part_no}
           </div>
         </div>
         <div>
@@ -35,7 +41,7 @@ export default class ProductPanel extends React.Component {
             Mevcut Miktar:
           </div>
           <div className="p-field">
-            <span>46</span>
+            <span>{product.quantity}</span>
           </div>
         </div>
 
@@ -49,13 +55,19 @@ export default class ProductPanel extends React.Component {
         </div>
         <div>
           <div className="sec50">
-            <button className="full-width">Geri Dön</button>
+            <button className="full-width" onClick={() => this.props.onBack()}>Geri Dön</button>
           </div>
           <div className="sec50">
-            <button className="button-primary full-width">Güncelle</button>
+            <button className="button-primary full-width" onClick={() => this.handleUpdate()}>Güncelle</button>
           </div>
         </div>
       </div>
     );
   }
 }
+
+ProductPanel.propTypes = {
+  onBack: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  product: PropTypes.object.isRequired
+};

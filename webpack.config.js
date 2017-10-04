@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 module.exports = {
-  entry: './client',
+  entry: ['babel-polyfill', './client'],
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "pc-client.js",

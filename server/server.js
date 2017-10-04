@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'development') {
   port = 3002;
   const webpack = require('webpack');
   const webpackConfig = require('../webpack.config');
-  webpackConfig.devtool = 'cheap-eval-source-map';
+  webpackConfig.devtool = 'source-map';
   const webpackDevMiddleWare = require('webpack-dev-middleware');
   app.use(webpackDevMiddleWare(webpack(webpackConfig)));
 }
