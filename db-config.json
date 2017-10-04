@@ -1,7 +1,7 @@
 {
   "host": "localhost",
-  "user": "",
+  "user": "root",
   "port":3306,
-  "password": "",
-  "database": ""
+  "password": "Mysql1234567",
+  "database": "product_count"
 }
