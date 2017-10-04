@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 const productRouter =require('./api/productRouter');
 
-let port = 80;
+let port = 3003;
 if (process.env.NODE_ENV === 'development') {
   port = 3002;
   const webpack = require('webpack');

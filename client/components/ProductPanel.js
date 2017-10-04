@@ -7,7 +7,8 @@ export default class ProductPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: this.props.product.quantity_count || 0
+      count: undefined,
+      disabled: true
     };
   }
 
@@ -16,7 +17,14 @@ export default class ProductPanel extends React.Component {
   }
 
   handleInput(event) {
-    this.setState({count: event.target.value});
+    this.setState({
+      count: event.target.value,
+      disabled: false
+    });
+  }
+
+  componentDidMount() {
+    this.input.focus();
   }
 
   render() {
@@ -58,6 +66,10 @@ export default class ProductPanel extends React.Component {
                    className="u-width-full"
                    value={this.state.count}
                    onChange={(event) => this.handleInput(event)}
+                   ref={(input) => {
+                     this.input = input;
+                   }}
+                   placeholder={this.props.product.quantity_count}
             />
           </div>
         </div>
@@ -66,7 +78,11 @@ export default class ProductPanel extends React.Component {
             <button className="full-width" onClick={() => this.props.onBack()}>Geri Dön</button>
           </div>
           <div className="sec50">
-            <button className="button-primary full-width" onClick={() => this.handleUpdate()}>Güncelle</button>
+            <button className="button-primary full-width"
+                    onClick={() => this.handleUpdate()}
+                    disabled={this.state.disabled}>
+              Güncelle
+            </button>
           </div>
         </div>
       </div>

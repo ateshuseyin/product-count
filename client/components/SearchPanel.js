@@ -2,6 +2,17 @@ import './SearchPanel.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+function isFromBarcodeReader(barcode) {
+  return barcode.length > 2 && barcode.startsWith('*') && barcode.endsWith('*');
+}
+
+function cleanBarcode(barcode) {
+  if (isFromBarcodeReader(barcode)) {
+    return barcode.substr(1, barcode.length - 2);
+  }
+  return barcode;
+}
+
 export default class SearchPanel extends React.Component {
 
   constructor(props) {
@@ -12,15 +23,20 @@ export default class SearchPanel extends React.Component {
   }
 
   handleChange(event) {
-    let newBarcode = event.target.value;
-    if (newBarcode.length > 2 && newBarcode.startsWith('*') && newBarcode.endsWith('*')) {
-      this.props.onSearch(newBarcode);
+    let value = event.target.value;
+    if (isFromBarcodeReader(value)) {
+      this.props.onSearch(cleanBarcode(value));
     }
-    this.setState({barcode: newBarcode});
+    this.setState({barcode: value});
   }
 
   handleSearch() {
-    this.props.onSearch(this.state.barcode);
+    let barcode = cleanBarcode(this.state.barcode);
+    this.props.onSearch(barcode);
+  }
+
+  componentDidMount() {
+    this.input.focus();
   }
 
   render() {
@@ -36,14 +52,17 @@ export default class SearchPanel extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <h5>Aramak istediğiniz ürünüz barkodunu giriniz</h5>
+          <h5>Aramak istediğiniz ürünün barkodunu giriniz</h5>
         </div>
         <div className="row">
           <input className="u-full-width"
                  type="text"
                  placeholder="barkod"
                  value={this.state.barcode}
-                 onChange={event => this.handleChange(event)}/>
+                 onChange={event => this.handleChange(event)}
+                 ref={(input) => {
+                   this.input = input
+                 }}/>
         </div>
         {errorMessage}
         <div className="row">

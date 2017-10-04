@@ -28,18 +28,14 @@ router.get('/product/:barcode', function (req, res) {
 
 router.post('/product/:barcode', function (req, res) {
   const query = mysql.format(UPDATE_QUANTITY, [req.body.quantity, req.params.barcode]);
-  db.query(query, function (error, results) {
+  db.query(query, function (error) {
     if (error) {
       res.status(500).send({message: error.message});
       return;
     }
-    if (results.changedRows === 1) {
-      res.json({
-        message: 'Success'
-      });
-    } else {
-      res.status(404).send({message: 'Güncellenecek ürün bulunamadı!'});
-    }
+    res.json({
+      message: 'Success'
+    });
   });
 });
 
