@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 module.exports = {
-  entry: ['babel-polyfill', './client'],
+  entry: './client',
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "pc-client.js",
@@ -35,9 +35,12 @@ module.exports = {
                       "> 1%",
                       "last 2 versions"
                     ]
-                  }
+                  },
+                  "modules": false,
+                  useBuiltIns: true
                 }
-              ]]
+              ]],
+            "plugins": ["transform-object-rest-spread"]
           }
         }
       },

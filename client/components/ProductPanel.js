@@ -7,12 +7,16 @@ export default class ProductPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0
+      count: this.props.product.quantity_count || 0
     };
   }
 
   handleUpdate() {
     this.props.onUpdate(this.props.product.barcode, this.state.count);
+  }
+
+  handleInput(event) {
+    this.setState({count: event.target.value});
   }
 
   render() {
@@ -50,7 +54,11 @@ export default class ProductPanel extends React.Component {
             Sayılan:
           </div>
           <div className="p-field">
-            <input type="number" className="u-width-full"/>
+            <input type="number"
+                   className="u-width-full"
+                   value={this.state.count}
+                   onChange={(event) => this.handleInput(event)}
+            />
           </div>
         </div>
         <div>

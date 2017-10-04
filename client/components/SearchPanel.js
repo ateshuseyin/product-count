@@ -1,3 +1,4 @@
+import './SearchPanel.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -23,6 +24,15 @@ export default class SearchPanel extends React.Component {
   }
 
   render() {
+
+    let errorMessage = null;
+    if (this.props.error) {
+      errorMessage = (
+        <div className="row">
+          <span className="error">{this.props.error}</span>
+        </div>
+      );
+    }
     return (
       <div className="container">
         <div className="row">
@@ -35,6 +45,7 @@ export default class SearchPanel extends React.Component {
                  value={this.state.barcode}
                  onChange={event => this.handleChange(event)}/>
         </div>
+        {errorMessage}
         <div className="row">
           <button className="button-primary u-full-width" onClick={() => this.handleSearch()}>Ara</button>
         </div>
@@ -44,5 +55,6 @@ export default class SearchPanel extends React.Component {
 }
 
 SearchPanel.propTypes = {
-  onSearch: PropTypes.func.isRequired
+  onSearch: PropTypes.func.isRequired,
+  error: PropTypes.string
 };

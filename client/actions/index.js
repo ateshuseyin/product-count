@@ -1,9 +1,22 @@
+import axios from 'axios';
+
 function getJson(url) {
-  return fetch(url).then((response) => {
-    if (response.ok) {
-      return response.json();
+  return axios.get(url).then((response) => {
+    if (response.status === 200) {
+      return Promise.resolve(response.data);
+    } else {
+      return Promise.reject(response.data);
     }
-    throw response.json();
+  });
+}
+
+function postJson(url, body) {
+  return axios.post(url, body).then((response) => {
+    if (response.status === 200) {
+      return Promise.resolve(response.data);
+    } else {
+      return Promise.reject(response.data);
+    }
   });
 }
 
@@ -34,12 +47,32 @@ export const search = (barcode) => (dispatch) => {
   );
 };
 
-export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
-export const updateProduct = (productId, count) => ({
-  type: UPDATE_PRODUCT,
-  productId,
-  count
+export const UPDATE_PRODUCT_REQUEST = 'UPDATE_PRODUCT_REQUEST';
+const updateRequest = (barcode) => ({
+  type: UPDATE_PRODUCT_REQUEST,
+  barcode
 });
+
+export const UPDATE_PRODUCT_SUCCESS = 'UPDATE_PRODUCT_SUCCESS';
+const updateSuccess = (barcode) => ({
+  type: UPDATE_PRODUCT_SUCCESS,
+  barcode
+});
+
+export const UPDATE_PRODUCT_FAILED = 'UPDATE_PRODUCT_FAILED';
+const updateFailed = (barcode, error) => ({
+  type: UPDATE_PRODUCT_FAILED,
+  barcode,
+  error
+});
+
+export const updateProduct = (barcode, count) => (dispatch) => {
+  dispatch(updateRequest(barcode));
+  postJson('/api/product/' + barcode, {quantity: count}).then(
+    () => dispatch(updateSuccess(barcode)),
+    (error) => dispatch(updateFailed(barcode, error))
+  );
+};
 
 export const BACK_TO_SEARCH = 'BACK_TO_SEARCH';
 export const backToSearch = () => ({
