@@ -1,0 +1,39 @@
+{
+  "name": "product-count",
+  "version": "0.0.1",
+  "description": "Small gift to my friend",
+  "main": "index.js",
+  "author": "Hüseyin ATEŞ",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "npm run build && cross-env NODE_ENV=production node server/server.js",
+    "start:dev": "cross-env NODE_ENV=development node server/server.js",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "express": "^4.16.1",
+    "mysql": "^2.14.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "skeleton-css": "^2.0.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.8.0",
+    "file-loader": "^1.1.4",
+    "npm-run-all": "^4.1.1",
+    "style-loader": "^0.19.0",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.6.0",
+    "webpack-dev-middleware": "^1.12.0"
+  }
+}
