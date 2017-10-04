@@ -2,7 +2,7 @@
 
 * A small gift to my friend
 * A tiny helper app for store staff
-* Developed in 5 hours from scratch
+* Developed in a day from scratch
 * A simple full-stack react app
 
 ### Running App ###
