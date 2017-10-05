@@ -9,7 +9,7 @@
   "scripts": {
     "start": "npm run build && cross-env NODE_ENV=production node server/server.js",
     "start:dev": "cross-env NODE_ENV=development node server/server.js",
-    "build": "webpack"
+    "build": "cross-env NODE_ENV=production webpack -p"
   },
   "dependencies": {
     "axios": "^0.16.2",
